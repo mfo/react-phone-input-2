@@ -970,13 +970,17 @@ class PhoneInput extends React.Component {
           <div
             onClick={disableDropdown ? undefined : this.handleFlagDropdownClick}
             className={selectedFlagClasses}
-            title={selectedCountry ? `${selectedCountry.name}: + ${selectedCountry.dialCode}` : ''}
+
             tabIndex={disableDropdown ? '-1' : '0'}
             role='button'
             aria-haspopup="listbox"
             aria-expanded={showDropdown ? true : undefined}
             {
-              ...selectedCountry ? { "aria-labelledby": `flag-${selectedCountry.iso2}` } : { "aria-label": this.props.placeholder }
+              ...selectedCountry && showDropdown ?
+              { "aria-labelledby": `flag-${selectedCountry.iso2}` } :
+              { "aria-label": selectedCountry ?
+                `${selectedCountry.name}: + ${selectedCountry.dialCode}` :
+                this.props.placeholder }
             }
           >
             <div className={inputFlagClasses}>
